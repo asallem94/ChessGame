@@ -41,7 +41,7 @@ class Board
 
     self[end_pos] = moving_piece
     moving_piece.position = end_pos
-    self[start_pos] = NullPiece.new(nil, self, start_pos)
+    self[start_pos] = NullPiece.instance
 
 
   end
@@ -68,7 +68,7 @@ class Board
   def setup_null_piece
     (2..5).each do |row|
       (0..7).each do |col|
-        self.grid[row][col] = NullPiece.new(nil, self, [row,col])
+        self.grid[row][col] = NullPiece.instance
       end
     end
   end

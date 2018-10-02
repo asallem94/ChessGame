@@ -1,5 +1,7 @@
 require_relative 'render'
 
+# UML chess link
+# https://github.com/appacademy/curriculum/blob/master/ruby/assets/Chess_Diagram.png
 b = Board.new()
 
 Display.new(b)
