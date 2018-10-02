@@ -3,8 +3,6 @@ module Slideable
   def horizontal_dirs
     steps = []
     [[0,1],[0,-1],[-1,0],[1,0]].each do |d|
-      p d
-      p steps
         steps += grow_unblocked_moves_in_dir(d[0], d[1])
     end
     steps

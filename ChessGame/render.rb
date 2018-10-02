@@ -11,21 +11,37 @@ class Display
   end
 
   def render
-    symbol_hash = {nil => "   ", :p => " p ", :k => " + ", :b => " t " , :kn => " $ " , :q => " W ", :r => " = " }
-    color_hash = {"W" => :orange, "B" => :black}
-    background = {true => :light_yellow, false => :light_green}
+    symbol_hash = {nil => " ", :p => "p", :k => "+", :b => "t" , :kn => "$" , :q => "W", :r => "=" }
+    color_hash = {"W" => :white, "B" => :black}
+    # background = {true => :, false => :}
     puts ""
 
-    puts "--------------------------------"
+    spacer = "    "
+    col_index = "#{spacer} #{spacer}"
+    8.times do |i|
+      col_index += "#{spacer}#{i}#{spacer}"
+    end
+    puts col_index
+    puts ""
     (0..7).each do |row|
-      str = "|"
+      str = "#{spacer}#{row}#{spacer}"
+      str_spacing = ""
+
       (0..7).each do |col|
         piece = self.board[[row, col]]
-        str += "#{symbol_hash[piece.symbol].colorize(:color => color_hash[piece.color]).colorize(:background => background[(col.even? && row.even?) ||(col.odd? && row.odd?)])}|"
+        linespace = "#{spacer} #{spacer}"
+        addition_str = "#{spacer}#{symbol_hash[piece.symbol].colorize(:color => color_hash[piece.color])}#{spacer}"
+        if (col.even? && row.even?) ||(col.odd? && row.odd?)
+          str += addition_str.on_light_black
+          str_spacing += linespace.on_light_black
+        else
+          str += addition_str.on_light_cyan
+          str_spacing += linespace.on_light_cyan
+        end
       end
-
+      puts "#{spacer} #{spacer}"+str_spacing
       puts str
-      puts "--------------------------------"
+      puts "#{spacer} #{spacer}"+str_spacing
     end
     puts ""
 
