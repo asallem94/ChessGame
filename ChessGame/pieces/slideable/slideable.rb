@@ -20,17 +20,7 @@ module Slideable
     steps
   end
 
-  def moves
-    # spaces to go to.
-    # list of spaces.
-    move_dirs
-  end
-
   private
-  def move_dirs
-
-
-  end
 
   def grow_unblocked_moves_in_dir(dx, dy)
     # detect unblocked.
@@ -39,7 +29,6 @@ module Slideable
     i=1
     potential_pos = [(self.position[0] + dx), (self.position[1] + dy)]
     while in_board?(potential_pos) && self.color != board[potential_pos].color
-      "Potential position : #{potential_pos}"
       steps_in_direction << potential_pos
       break if board[potential_pos].color == opposite_color[self.color]
       i+=1
