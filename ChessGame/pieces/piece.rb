@@ -11,9 +11,7 @@ class Piece
   def valid_moves
     # return [[self.position[0]+1,self.position[1]], [self.position[0]+2,self.position[1]]] # test
     piece_type = self.board[self.position]
-    return piece_type.move_dirs unless piece_type.move_dirs.nil?
-    return piece_type.move_diffs unless piece_type.move_dirs.nil?
-
+    piece_type.possible_moves
   end
 
   # def to_s

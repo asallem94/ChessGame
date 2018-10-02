@@ -1,5 +1,6 @@
 require_relative 'cursor'
 require_relative 'board'
+require 'colorize'
 
 class Display
   attr_reader :board#, :cursor

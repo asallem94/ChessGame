@@ -1,15 +1,31 @@
+require "byebug"
+
 module Steppable
-  def moves
-    # spaces to go to.
-    # list of spaces.
-    move_dirs
+  def possible_moves
+    available_positions = []
+    # p = self.position
+    possible_positions = get_possible_positions
+    possible_positions.each do |change|
+      potential_pos = add_array(self.position, change)
+      # debugger
+      if self.color != board[potential_pos].color && in_board?(potential_pos)
+        # debugger
+        available_positions << potential_pos
+      end
+    end
+
+    available_positions
   end
 
-  private
-  def move_dirs
-    # all possible moves
-    # direction to move.
-    # position by deltas. Rep horizontal move by +1 and 0.
-
+  def in_board?(potential_pos)
+     potential_pos[0].between?(0,7) && potential_pos[1].between?(0,7)
   end
+  def add_array(a, b)
+    c = []
+    [0,1].each do |i|
+      c << a[i] + b[i]
+    end
+    c
+  end
+
 end

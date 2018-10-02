@@ -7,7 +7,7 @@ class Pawn < Piece
     super
     @symbol = :p
   end
-  def move_dirs
+  def possible_moves
     available_moves = [[self.position[0]+forward_dir, self.position[1]]]
     available_moves << forward_steps if at_start_row?
     available_moves.each { |pos| available_moves.delete(pos) unless board[pos].color == nil  }
@@ -17,16 +17,20 @@ class Pawn < Piece
   end
 
   private
+
   def at_start_row?
     (self.color == "W" && self.position[0] == 1) || (self.color == "B" && self.position[0] == 6)
   end
+
   def forward_dir
     return 1 if color == "W"
     return -1 if color == "B"
   end
+
   def forward_steps
     [self.position[0]+forward_dir*2, self.position[1]] if at_start_row?
   end
+
   def side_attack
     l_pos = [self.position[0]+forward_dir, self.position[1]-1]
     r_pos = [self.position[0]+forward_dir, self.position[1]+1]
@@ -35,6 +39,7 @@ class Pawn < Piece
     right_attack = self.board[r_pos]
 
     attack_possibilities = []
+
     if l_pos[1]>-1
       if left_attack.color != self.color && !left_attack.color.nil?
         attack_possibilities << l_pos
