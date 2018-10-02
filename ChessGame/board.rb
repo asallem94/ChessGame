@@ -1,3 +1,5 @@
+require_relative "pieces/piece"
+
 #Steppable
 require_relative "pieces/steppable/king"
 require_relative "pieces/steppable/knight"
@@ -8,11 +10,18 @@ require_relative "pieces/slideable/rook"
 #Unique
 require_relative "pieces/nullpiece"
 require_relative "pieces/pawn"
-class NoPiece < StandardError
+class CantMoveError < StandardError
   def message
-    puts "There is no piece."
+    puts "Change your starting position!"
   end
 end
+
+class ValidMoveError < StandardError
+  def message
+    puts "Not a valid move!"
+  end
+end
+
 class Board
   attr_accessor :grid
   def initialize()
@@ -21,11 +30,20 @@ class Board
   end
 
   def move_piece(color,start_pos, end_pos)
-    begin
-
-    rescue
-
+    moving_piece = self[start_pos]
+    unless color == moving_piece.color
+      raise CantMoveError
     end
+
+    unless moving_piece.valid_moves.include?(end_pos)
+      raise ValidMoveError
+    end
+
+    self[end_pos] = moving_piece
+    moving_piece.position = end_pos
+    self[start_pos] = NullPiece.new(nil, self, start_pos)
+
+
   end
   def inspect
 
@@ -56,8 +74,8 @@ class Board
   end
   def setup_pawns
     (0..7).each do |col|
-      self.grid[1][col] = Pawn.new("W", self, [2,col])
-      self.grid[6][col] = Pawn.new("B", self, [7,col])
+      self.grid[1][col] = Pawn.new("W", self, [1,col])
+      self.grid[6][col] = Pawn.new("B", self, [6,col])
     end
   end
 

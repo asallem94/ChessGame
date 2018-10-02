@@ -17,7 +17,7 @@ class Display
     (0..7).each do |row|
       str = "|"
       (0..7).each do |col|
-        piece = self.board.grid[row][col]
+        piece = self.board[[row, col]]
         str += " #{symbol_hash[piece.symbol]} |"
       end
 
